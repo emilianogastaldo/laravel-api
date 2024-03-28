@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -35,4 +36,11 @@ class Project extends Model
     {
         return $this->belongsToMany(Technology::class);
     }
+
+    // Creo l'Accessor per modificare l'url delle immagini
+    //  (!) Questo verrà eseguito SEMPRE quindi può essere dispendioso
+    // public function image()
+    // {
+    //     return Attribute::make(fn ($value) => $value && app('request')->is('api/*') ? url('storage/' . $value) : $value);
+    // }
 }
