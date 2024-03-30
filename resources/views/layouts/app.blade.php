@@ -37,6 +37,9 @@
 
     {{-- Modale --}}
     @include('includes.modal')
+    
+    {{-- Toast --}}
+    @include('includes.toast')
 
     {{-- Scripts --}}
     @yield('scripts')
