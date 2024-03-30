@@ -66,7 +66,8 @@ class ProjectController extends Controller
                 'image.mimes' => 'Si supportano solo le immagini con estensione .png o .jpg',
                 'content.required' => 'La descrizione è obbligatoria',
                 'type_id.exists' => 'Categoria non valida',
-                'technologies.exists' => 'Tecnologia scelta non valida'
+                'technologies.exists' => 'Tecnologia scelta non valida',
+                'is_published' => 'Il calore del campo pubblicazione non è valido'
             ]
         );
         // Recupero i dati dopo averli validati
@@ -133,23 +134,25 @@ class ProjectController extends Controller
                 'image.mimes' => 'Si supportano solo le immagini con estensione .png o .jpg',
                 'content.required' => 'La descrizione è obbligatoria',
                 'type_id' => 'Categoria non valida',
-                'technologies.exists' => 'Tecnologia scelta non valida'
+                'technologies.exists' => 'Tecnologia scelta non valida',
+                'is_published' => 'Il calore del campo pubblicazione non è valido'
             ]
         );
         $data = $request->all();
 
-        $project->slug = Str::slug($data['title']);
+        $data['slug'] = Str::slug($data['title']);
         // Assegno vero o falso in base a se arriva o meno la chiave is_published
-        $project->is_published = Arr::exists($data, 'is_published');
+        $data['is_published'] = Arr::exists($data, 'is_published');
 
         if (Arr::exists($data, 'image')) {
+            // elimino la vecchia immagine dalla cartella
             if ($project->image) Storage::delete($project->image);
 
             $extension = $data['image']->extension();
             $img_url = Storage::putFileAs('project_images', $data['image'], "$project->slug.$extension");
-            $project->image = $img_url;
+            $data['image'] = $img_url;
         }
-
+        // Usare update equivale a fare:
         // $project->fill($data);
         // $project->save();
         $project->update($data);
