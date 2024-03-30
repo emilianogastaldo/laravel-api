@@ -68,11 +68,17 @@
             @endforeach
         </div>
         {{-- Input pubblicato o bozza --}}
-        <div class="col-2"> 
-            <div class="form-check">
+        <div class="col-2">
+            {{-- Checkbox special --}}
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="is_published" value="" name="is_published" @if (old('is_published', $project->is_published)) checked @endif >
+                <label class="form-check-label" for="is_published">Pubblica</label>
+            </div> 
+            {{-- Checkbox classico --}}
+            {{-- <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="is_published" value="" name="is_published" @if (old('is_published', $project->is_published)) checked @endif >
                 <label class="form-check-label" for="is_published">Pubblica</label>                                   
-            </div>       
+            </div>        --}}
         </div>
         {{-- Input content --}}
         <div class="col-12">
