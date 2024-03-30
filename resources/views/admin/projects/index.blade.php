@@ -5,7 +5,7 @@
 @section('content')
     <header class="mt-5 d-flex aligh-items-center justify-content-between">
         <h1>Projects</h1>
-
+      
         {{-- Filtro --}}
         <form action="{{route('admin.projects.index')}}" method="GET">
           <div class="input-group">
@@ -31,8 +31,9 @@
             <th scope="col">Creato il</th>
             <th scope="col">Ultima modifica</th>
             <th scope="col">
-              <div class="text-center">
+              <div class="d-flex flex-column">
                 <a href="{{route('admin.projects.create')}}" class="btn btn-success"><i class="fas fa-plus-square me-2"></i>Nuovo</a>
+                <a href="{{route('admin.projects.trash')}}" class="btn btn-secondary"><i class="fas fa-trash-can me-2"></i>Cestino</a>
               </div>
             </th>
           </tr>
@@ -57,7 +58,9 @@
                 <span>Nessuna</span>
                 @endforelse
               </td>
-              <td>{{$project->is_published ? 'Pubblicato' : 'Non pubblicato'}}</td>
+              <td>
+                {{$project->is_published ? 'Pubblicato' : 'Non pubblicato'}}
+              </td>
               <td>{{$project->getFormatedDate('created_at')}}</td>
               <td>{{$project->getFormatedDate('updated_at', 'd-m-Y H:i:s')}}</td>
               <td>
@@ -75,7 +78,7 @@
                 
             @empty
                 <tr>
-                    <td colspan="6"><h3>Non ci sono progetti</h3></td>
+                    <td colspan="10"><h3>Non ci sono progetti</h3></td>
                 </tr>
             @endforelse
          

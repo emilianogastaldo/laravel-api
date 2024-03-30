@@ -169,31 +169,35 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        if ($project->image) Storage::delete($project->image);
-        if ($project->has('technologies')) $project->technologies()->detach();
-        $project->forceDelete();
+        // if ($project->image) Storage::delete($project->image);
+        // if ($project->has('technologies')) $project->technologies()->detach();
+        $project->delete();
         return to_route('admin.projects.index')->with('type', 'danger')->with('message', 'Progetto eliminato con successo');
     }
 
 
     // ROTTE SOFT DELETE
 
-    public function trash()
+    public function trash(Request $request)
     {
-        $project = Project::onlyTrashed()->get();
-        return view('admin.projects.trash', compact('project'));
+        // Visualizzo solo quelli che hanno qualcosa nella colonna deleted_at
+        $filter = $request->query('filter');
+        $projects = Project::onlyTrashed()->get();
+        // paginate(10)->withQueryString();
+        return view('admin.projects.trash', compact('projects', 'filter'));
     }
 
     public function restore(Project $project)
     {
         $project->restore();
-        return to_route('admin.projects.index')->with('type', 'success')->with('message', 'Post ripristinato correttamente');
+        return to_route('admin.projects.index')->with('type', 'success')->with('message', 'Progetto ripristinato correttamente');
     }
 
     public function drop(Project $project)
     {
         if ($project->image) Storage::delete($project->image);
+        if ($project->has('technologies')) $project->technologies()->detach();
         $project->forceDelete();
-        return to_route('admin.projects.trash')->with('type', 'warning')->with('message', 'Post eliminato definitivamente');
+        return to_route('admin.projects.trash')->with('type', 'warning')->with('message', 'Progetto eliminato definitivamente');
     }
 }
