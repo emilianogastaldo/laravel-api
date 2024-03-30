@@ -54,7 +54,8 @@ class ProjectController extends Controller
                 'image' => 'nullable|image|mimes:png,jpg',
                 'content' => 'required|string',
                 'type_id' => 'nullable|exists:types,id',
-                'technologies' => 'nullable|exists:technologies,id'
+                'technologies' => 'nullable|exists:technologies,id',
+                'is_published' => 'nullable|boolean'
             ],
             [
                 'title.required' => 'Il titolo è obbligatorio',
@@ -72,13 +73,14 @@ class ProjectController extends Controller
         $data = $request->all();
         // creoun nuovo Project e lo riempio
         $new_project = new Project();
-        $new_project['slug'] = Str::slug($data['title']);
         if (Arr::exists($data, 'image')) {
             $extension = $data['image']->extension();
             $img_url = Storage::putFileAs('project_images', $data['image'], "{$new_project['slug']}.$extension");
             $new_project['image'] = $img_url;
         }
         $new_project->fill($data);
+        $new_project->slug = Str::slug($data['title']);
+        $new_project->is_published = Arr::exists($data, 'is_published');
 
         // salvo il progetto
         $new_project->save();
@@ -119,7 +121,8 @@ class ProjectController extends Controller
                 'image' => 'nullable|image|mimes:png,jpg',
                 'content' => 'required|string',
                 'type_id' => 'nullable|exists:types,id',
-                'technologies' => 'nullable|exists:technologies,id'
+                'technologies' => 'nullable|exists:technologies,id',
+                'is_published' => 'nullable|boolean'
             ],
             [
                 'title.required' => 'Il titolo è obbligatorio',
@@ -134,7 +137,10 @@ class ProjectController extends Controller
             ]
         );
         $data = $request->all();
-        $project['slug'] = Str::slug($data['title']);
+
+        $project->slug = Str::slug($data['title']);
+        // Assegno vero o falso in base a se arriva o meno la chiave is_published
+        $project->is_published = Arr::exists($data, 'is_published');
 
         if (Arr::exists($data, 'image')) {
             if ($project->image) Storage::delete($project->image);

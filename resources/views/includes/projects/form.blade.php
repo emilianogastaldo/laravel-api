@@ -57,7 +57,8 @@
                 @enderror
             </div>
         </div>
-        <div class="col-12">
+        {{-- Input delle tecnologie --}}
+        <div class="col-10">
             <label for="technologies">Seleziona le tecnologie usate:</label>
             @foreach ($techs as $tech)
             <div class="form-check form-check-inline" id="technologies">
@@ -65,6 +66,13 @@
                 <label class="form-check-label" for="{{"tech-$tech->id"}}">{{$tech->label}}</label>                    
             </div>
             @endforeach
+        </div>
+        {{-- Input pubblicato o bozza --}}
+        <div class="col-2"> 
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="is_published" value="1" name="is_published" @if (old('is_published', $project->is_published)) checked @endif >
+                <label class="form-check-label" for="is_published">Pubblica</label>                                   
+            </div>       
         </div>
         {{-- Input content --}}
         <div class="col-12">
