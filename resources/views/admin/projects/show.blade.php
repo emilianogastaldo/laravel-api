@@ -4,7 +4,7 @@
 
 @section('content')
     <header class="mt-3">
-        <h1>{{$project->title}}</h1>
+        <h1>{{$project->title}} <span class="badge text-bg-{{$project->is_published ? 'success' : 'danger'}} ms-2">{{$project->is_published ? 'Pubblicato' : 'Bozza'}}</span></h1>
         <div class="d-flex gap-4">
             <div>
                 Tipologia: 
@@ -37,8 +37,9 @@
             </div>
         </div>
     </section>
-        <footer class="d-flex justify-content-between alig-items-center">
-            <a href="{{route('admin.projects.index')}}" class="btn btn-outline-secondary"><i class="far fa-hand-point-left me-2"></i>Torna indietro</a>
+    <hr>
+    <footer class="d-flex justify-content-between alig-items-center">
+        <a href="{{route('admin.projects.index')}}" class="btn btn-outline-secondary"><i class="far fa-hand-point-left me-2"></i>Torna indietro</a>
         <div class="d-flex justify-content-between alig-items-center gap-2">
             <a href="{{route('admin.projects.edit', $project)}}" class="btn btn-outline-warning"><i class="fas fa-pen me-2"></i>Modifica</a>
             <form action="{{route('admin.projects.destroy', $project)}}" method="POST" class="delete-form" data-bs-toggle="modal" data-bs-target="#modal">
