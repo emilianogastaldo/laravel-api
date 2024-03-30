@@ -25,10 +25,7 @@
 @endsession
 
 <script>
+    // Faccio sparire dopo 5 secondi il toast
     const toast = document.getElementById('liveToast');
-
-    if(toast) setTimeout(() => {
-        toast.classList.remove('show')
-        
-    }, 3000);
+    if(toast) setTimeout(() => { toast.classList.remove('show') }, 5000);
 </script>

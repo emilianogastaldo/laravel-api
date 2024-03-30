@@ -2,7 +2,7 @@
 @session('message')
 <div class="alert alert-{{session('type', 'info')}} alert-dismissible fade show" role="alert">
     {{$value}}
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <button type="button" id="btnClose" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 @endsession
 
@@ -18,3 +18,9 @@
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 @endif
+
+<script>
+    // Faccio sparire dopo 3 secondi il toast
+    const closeBtn = document.getElementById('btnClose');
+    if(closeBtn) setTimeout(() => { closeBtn.click() }, 5000);
+</script>
