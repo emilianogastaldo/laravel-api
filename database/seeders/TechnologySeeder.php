@@ -23,7 +23,7 @@ class TechnologySeeder extends Seeder
             ['label' => 'Vue', 'color' => 'warning'],
             ['label' => 'PHP', 'color' => 'info'],
             ['label' => 'SQL', 'color' => 'warning'],
-            ['label' => 'Laravel', 'color' => 'dark']
+            ['label' => 'Laravel', 'color' => 'light']
         ];
         foreach ($techs as $tech) {
             $new_tech = new Technology();
