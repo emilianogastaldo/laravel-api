@@ -19,17 +19,30 @@ class ProjectController extends Controller
      */
     public function index(Request $request)
     {
-        $filter = $request->query('filter');
+        $publishedFilter = $request->query('published-filter');
+        $typeFilter = $request->query('type-filter');
+        $techFilter = $request->query('tech-filter');
 
         $query = Project::orderByDesc('updated_at')->orderByDesc('created_at');
 
-        if ($filter) {
-            $value = $filter === 'pubblico';
+        if ($publishedFilter) {
+            $value = $publishedFilter === 'pubblico';
             $query->whereIsPublished($value);
+        }
+        if ($typeFilter) $query->whereTypeId($typeFilter);
+        if ($techFilter) {
+            // Se ho una relazione many to many uso whereHas
+            // Dico con chi voglio relazionarmi e nella call back fn gli dico come si deve relazionare
+            $query->whereHas('technologies', function ($query) use ($techFilter) {
+                // Ricerca nella colonna id della tabella technologies il parametro che ho passato
+                $query->where('technologies.id', $techFilter);
+            });
         }
 
         $projects = $query->paginate(10)->withQueryString();
-        return view('admin.projects.index', compact('projects', 'filter'));
+        $types = Type::select('id', 'label')->get();
+        $techs = Technology::select('id', 'label')->get();
+        return view('admin.projects.index', compact('projects', 'publishedFilter', 'typeFilter', 'techFilter', 'types', 'techs'));
     }
 
     /**

@@ -9,31 +9,46 @@
         {{-- Filtro --}}
         <form action="{{route('admin.projects.index')}}" method="GET">
           <div class="input-group">
-            <select class="form-select" name="filter">
-              <option value="">Tutti</option>
-              <option value="pubblico" @if ($filter === 'pubblico') selected @endif>Pubblici</option>
-              <option value="bozza" @if ($filter === 'bozza') selected @endif>Non pubblici</option>
+            <select class="form-select" name="published-filter">
+              <option value="">Stato</option>
+              <option value="pubblico" @if ($publishedFilter === 'pubblico') selected @endif>Pubblici</option>
+              <option value="bozza" @if ($publishedFilter === 'bozza') selected @endif>Non pubblici</option>
             </select>
-            <button class="btn btn-outline-secondary">Button</button>
+            <select class="form-select" name="type-filter">
+              <option value="">Scegli tipo</option>
+              @foreach ( $types as $type)
+              {{-- Devo mettere == perché uno è una stringa dal form l'altro un numero dal database!! --}}
+              <option value="{{$type->id}}" @if ($typeFilter == $type->id) selected @endif>{{$type->label}}</option>
+              @endforeach              
+            </select>
+            <select class="form-select" name="tech-filter">
+              <option value="">Scegli tecnologia</option>
+              @foreach ( $techs as $tech)
+              {{-- Devo mettere == perché uno è una stringa dal form l'altro un numero dal database!! --}}
+              <option value="{{$tech->id}}" @if ($techFilter == $tech->id) selected @endif>{{$tech->label}}</option>
+              @endforeach              
+            </select>
+            <button class="btn btn-info" type="submit">Button</button>
+            <a href="{{route('admin.projects.index')}}" class="btn btn-outline-warning" type="reset">Reset</a>
           </div>
         </form>
     </header>
     <hr>
     <table class="table">
         <thead>
-          <tr>
-            <th scope="col">#</th>
+          <tr class="align-middle">
+            <th scope="col">Id</th>
             <th scope="col">Title</th>
-            <th scope="col">Slug</th>
+            {{-- <th scope="col">Slug</th> --}}
             <th scope="col">Tipo</th>
-            <th scope="col">Tenologia</th>
+            <th scope="col">Tecnologia</th>
             <th scope="col">Stato</th>
             <th scope="col">Creato il</th>
             <th scope="col">Ultima modifica</th>
             <th scope="col">
-              <div class="d-flex flex-column">
-                <a href="{{route('admin.projects.create')}}" class="btn btn-success"><i class="fas fa-plus-square me-2"></i>Nuovo</a>
-                <a href="{{route('admin.projects.trash')}}" class="btn btn-secondary"><i class="fas fa-trash-can me-2"></i>Cestino</a>
+              <div class="d-flex justify-content-center gap-3">
+                <a href="{{route('admin.projects.create')}}" class="btn btn-success"><i class="fas fa-plus-square "></i> Nuovo</a>
+                <a href="{{route('admin.projects.trash')}}" class="btn btn-secondary"><i class="fas fa-trash-can "></i> Cestino</a>
               </div>
             </th>
           </tr>
@@ -43,7 +58,7 @@
             <tr>
               <th scope="row">{{$project->id}}</th>
               <td>{{$project->title}}</td>
-              <td>{{$project->slug}}</td>
+              {{-- <td>{{$project->slug}}</td> --}}
               <td>
                 @if ($project->type)
                   <span class="badge" style="background-color: {{$project->type->color}}">{{$project->type->label}}</span>                    
@@ -74,8 +89,7 @@
                     </form>
                 </div>
               </td>
-            </tr>
-                
+            </tr>                
             @empty
                 <tr>
                     <td colspan="10"><h3>Non ci sono progetti</h3></td>
