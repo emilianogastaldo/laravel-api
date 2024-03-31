@@ -31,7 +31,10 @@ Route::prefix('/admin')->name('admin.')->middleware('auth')->group(function () {
     Route::patch('/projects/{project}/restore', [AdminProjectController::class, 'restore'])->name('projects.restore')->withTrashed();
     Route::delete('/projects/{project}/drop', [AdminProjectController::class, 'drop'])->name('projects.drop')->withTrashed();
 
-    // Rotta projects admin
+    // Rotta patch per il bottone nell'index
+    Route::patch('projects/{project}/publish', [AdminProjectController::class, 'togglePublication'])->name('projects.publish');
+
+    // Rotte principali projects admin
     Route::resource('projects', AdminProjectController::class);
 
     // Che è come fare queste 7 righe:

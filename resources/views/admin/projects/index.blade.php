@@ -68,13 +68,20 @@
               </td>
               <td>
                 @forelse ( $project->technologies as $tech )
-                <span class="badge rounded-pill text-bg-{{$tech->color}}" >{{$tech->label}}</span>               
+                <span class="badge rounded-pill text-bg-{{$tech->color}}">{{$tech->label}}</span>               
                 @empty                  
                 <span>Nessuna</span>
                 @endforelse
               </td>
               <td>
-                {{$project->is_published ? 'Pubblicato' : 'Non pubblicato'}}
+                <form action="{{route('admin.projects.publish', $project)}}" method="POST" class="publication-form" onclick = "this.submit()">
+                  @csrf
+                  @method('PATCH')
+                  <div class="form-check form-switch">
+                    <input role="button" class="form-check-input" type="checkbox" role="switch" id="is_published-{{$project->id}}" @if ($project->is_published) checked @endif >
+                    <label class="form-check-label" for="is_published-{{$project->id}}">{{$project->is_published ? 'Pubblicato' : 'Non pubblicato'}}</label>
+                  </div>                
+                </form>
               </td>
               <td>{{$project->getFormatedDate('created_at')}}</td>
               <td>{{$project->getFormatedDate('updated_at', 'd-m-Y H:i:s')}}</td>
@@ -107,4 +114,13 @@
 
 @section('scripts')
     @vite('resources/js/delete_confirmation.js')
+    {{-- Invece di fare tutto questo script posso usare un onclick = "this.submit()" nel form --}}
+    {{-- <script>
+      const publicationForms = document.querySelectorAll('.publication-form');
+      publicationForms.forEach( form => {
+        form.addEventListener('click', () =>{
+          form.submit();
+        })
+      });
+    </script> --}}
 @endsection

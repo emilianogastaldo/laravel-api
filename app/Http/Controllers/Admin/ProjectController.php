@@ -219,4 +219,16 @@ class ProjectController extends Controller
         $project->forceDelete();
         return to_route('admin.projects.trash')->with('type', 'warning')->with('message', 'Progetto eliminato definitivamente');
     }
+
+    // ROTTA PATCH DELL'INDEX
+    public function togglePublication(Project $project)
+    {
+        $project->is_published = !$project->is_published;
+        $project->save();
+
+        $action = $project->is_published ? 'pubblicato' : 'salvato come bozza';
+        $type = $project->is_published ? 'success' : 'info';
+
+        return back()->with('message', "Il progetto $project->title è stato $action")->with('type', $type);
+    }
 }
