@@ -21,9 +21,11 @@
                     <th scope="col">Creato il</th>
                     <th scope="col">Ultima modifica</th>
                     <th scope="col">
-                        <div class="text-center">
-                            <a href="#" class="btn btn-danger"><i class="fas fa-trash me-2"></i>Svuota cestino</a>
-                        </div>
+                        <form action="#" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-danger" id="delete-all-button"><i class="fas fa-trash me-2"></i>Svuota cestino</button>
+                        </form>
                     </th>
                 </tr>
             </thead>
@@ -56,7 +58,7 @@
                         <div class="d-flex gap-2 justify-content-center">
                             <a href="{{route('admin.projects.show', $project)}}" class="btn btn-outline-primary"><i class="fas fa-eye"></i></a>
                             <a href="{{route('admin.projects.edit', $project)}}" class="btn btn-outline-warning"><i class="fas fa-pen"></i></a>
-                            <form action="{{route('admin.projects.drop', $project)}}" method="POST" class="delete-form" data-bs-toggle="modal" data-bs-target="#modal">
+                            <form action="{{route('admin.projects.drop', $project)}}" method="POST" class="delete-button" data-bs-toggle="modal" data-bs-target="#modal">
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-outline-danger"><i class="fas fa-trash-can"></i></button>
@@ -91,4 +93,13 @@
 
 @section('scripts')
     @vite('resources/js/delete_confirmation.js')
+    {{-- <script>
+        const deleteAllButton = document.getElementById('delete-all-button');
+        const deleteButtons = document.querySelectorAll('.delete-button');
+        deleteAllButton.addEventListener('click', ()=>{
+            deleteButtons.forEach( form => {
+            form.submit();
+        });
+        });
+    </script> --}}
 @endsection

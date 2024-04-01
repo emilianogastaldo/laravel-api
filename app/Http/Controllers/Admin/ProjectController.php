@@ -220,6 +220,16 @@ class ProjectController extends Controller
         return to_route('admin.projects.trash')->with('type', 'warning')->with('message', 'Progetto eliminato definitivamente');
     }
 
+    // public function dropAll($projects)
+    // {
+    //     foreach ($projects as $project) {
+    //         if ($project->image) Storage::delete($project->image);
+    //         if ($project->has('technologies')) $project->technologies()->detach();
+    //         $project->forceDelete();
+    //     }
+    //     return back()->with('type', 'warning')->with('message', 'Progetto eliminato definitivamente');
+    // }
+
     // ROTTA PATCH DELL'INDEX
     public function togglePublication(Project $project)
     {
