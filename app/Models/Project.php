@@ -13,6 +13,10 @@ class Project extends Model
     use HasFactory;
     use SoftDeletes;
 
+    // Con questa variabile OGNI chiamata verrà fatta anche con queste informazioni,
+    // come se avvessi continuamente un ->with('type', 'technologies')
+    // protected $with = ['type', 'technologies'];
+
     protected $fillable = ['title', 'slug', 'content', 'type_id', 'is_published'];
 
     public function getFormatedDate($column, $format = 'd-m-Y')
