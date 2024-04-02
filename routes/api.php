@@ -30,6 +30,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // Posso scrivere tutte le rotte manualmente oppure con: only mi permette di dirgli quali usare
 Route::apiResource('/projects', ProjectController::class)->only('index');
-Route::get('/projects/{id}', [ProjectController::class, 'show']);
+Route::get('/projects/{slug}', [ProjectController::class, 'show']);
 
 // Comando per vedere le rotte: php artisan route:list e posso filtrare con --path=api
