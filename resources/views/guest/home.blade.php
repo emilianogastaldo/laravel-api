@@ -9,7 +9,6 @@
 @endif 
 @forelse ($projects as $project)
 <div class="card my-5">
-    {{-- @dd($project->slug) --}}
     <div class="card-header d-flex justify-content-between">
         <h3>{{$project->title}}</h3>
         {{-- Mi passo lo slug che laravel metterà in automatico --}}
@@ -22,7 +21,7 @@
                 <img src="{{$project->printImage()}}" alt="{{$project->title}}" class="float-start me-3">                   
                 @endif
                 <h4 class="card-title">{{$project->title}}</h4>
-                <h6 class="card-subtitle mb-2 text-body-secondary mt-3">Creato il: {{$project->getFormatedDate('created_at')}}</h6>
+                <h6 class="card-subtitle mb-2 text-body-secondary mt-3">Creato il: {{$project->getFormatedDate('created_at')}} da: {{$project->user ? $project->user->name : 'Anonimo'}}</h6>
                 <p class="card-text">{{$project->content}}</p>
             </div>
         </div>

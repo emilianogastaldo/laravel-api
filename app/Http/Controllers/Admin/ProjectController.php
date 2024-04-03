@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Technology;
 use App\Models\Type;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
@@ -95,6 +96,9 @@ class ProjectController extends Controller
         $new_project->fill($data);
         $new_project->slug = Str::slug($data['title']);
         $new_project->is_published = Arr::exists($data, 'is_published');
+
+        // Inserico come autore l'utente attualmente loggato
+        $new_project->user_id = Auth::id();
 
         // salvo il progetto
         $new_project->save();

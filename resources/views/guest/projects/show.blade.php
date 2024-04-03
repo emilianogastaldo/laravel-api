@@ -31,9 +31,12 @@
             <img src="{{$project->printImage()}}" alt="{{$project->post}}" class="me-4 float-start img-fluid">
             @endif
             <p>{{$project->content}}</p>
-            <div>
-                <p><strong>Creato il: </strong>{{$project->getFormatedDate('created_at', 'd-m-Y H:i:s')}}</p>
-                <p><strong>Ultima modifica il: </strong>{{$project->getFormatedDate('updated_at', 'd-m-Y H:i:s')}}</p>
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <p><strong>Creato il: </strong>{{$project->getFormatedDate('created_at', 'd-m-Y H:i:s')}}</p>
+                    <p><strong>Ultima modifica il: </strong>{{$project->getFormatedDate('updated_at', 'd-m-Y H:i:s')}}</p>
+                </div>
+                <p>Autore: <strong>{{$project->user ? $project->user->name : 'Anonimo'}}</strong></p>
             </div>
         </div>
     </section>
