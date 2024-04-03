@@ -34,11 +34,12 @@
         </form>
     </header>
     <hr>
-    <table class="table">
+    <table class="table table-sm">
         <thead>
           <tr class="align-middle">
             <th scope="col">Id</th>
             <th scope="col">Title</th>
+            <th scope="col">Autore</th>
             {{-- <th scope="col">Slug</th> --}}
             <th scope="col">Tipo</th>
             <th scope="col">Tecnologia</th>
@@ -58,6 +59,7 @@
             <tr>
               <th scope="row">{{$project->id}}</th>
               <td>{{$project->title}}</td>
+              <td>{{$project->user ? $project->user->name : 'Anonimo'}}</td>
               {{-- <td>{{$project->slug}}</td> --}}
               <td>
                 @if ($project->type)
