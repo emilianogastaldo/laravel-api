@@ -46,6 +46,11 @@ class Project extends Model
     {
         return $this->belongsTo(User::class);
     }
+    /*
+    Se voglio posso rompere la confenzione e chiamare user() con author(), ma implica varie cose:
+        return $this->belongsTo(User::class, 'user_id');
+    */
+
     // Creo l'Accessor per modificare l'url delle immagini, nome funzione uguale a quello della colonna
     //  (!) Questo verrà eseguito SEMPRE quindi può essere dispendioso
     public function image(): Attribute
