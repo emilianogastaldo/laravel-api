@@ -16,9 +16,9 @@ class ProjectController extends Controller
         $projects = Project::whereIsPublished(true)->with('type', 'technologies')->latest()->paginate(3);
         // Qui avrei un problema con i link delle immagini, che per ora sarebbero realtivi, invece sarebbe meglio aver assoluti
         // O faccio un ciclo ora, oppure vado a creare un Accessor nel modello Project che modifica in automatico l'url.
-        foreach ($projects as $project) {
-            if ($project->image) $project->image = url('storage/' . $project->image);
-        }
+        // foreach ($projects as $project) {
+        //     if ($project->image) $project->image = url('storage/' . $project->image);
+        // }
         return response()->json($projects);
     }
 
@@ -38,7 +38,7 @@ class ProjectController extends Controller
         $project = Project::whereIsPublished(true)->whereSlug($slug)->with('type', 'technologies')->first(); //->find($id);
         if (!$project) return response(null, 404);
         // Sempre lo stesso problema dell'immagine
-        if ($project->image) $project->image = url('storage/' . $project->image);
+        // if ($project->image) $project->image = url('storage/' . $project->image);
         return response()->json($project);
     }
 
