@@ -122,6 +122,10 @@ class ProjectController extends Controller
      */
     public function edit(Project $project)
     {
+        // Controllo se è autorizzato a modificare il progetto
+        // if ($project->user_id !== Auth::id()) {
+        //     return to_route('admin.projects.index')->with('message', 'Non sei autorizzato a modificare questo progetto')->with('type', 'danger');
+        // }
         $types = Type::select('label', 'id')->get();
         $techs = Technology::select('label', 'id')->get();
         $old_techs = $project->technologies->pluck('id')->toArray();
@@ -237,6 +241,11 @@ class ProjectController extends Controller
     // ROTTA PATCH DELL'INDEX
     public function togglePublication(Project $project)
     {
+        // Controllo se è autorizzato a modificare il progetto
+        // if ($project->user_id !== Auth::id()) {
+        //     return to_route('admin.projects.index')->with('message', 'Non sei autorizzato a modificare questo progetto')->with('type', 'danger');
+        // }
+
         $project->is_published = !$project->is_published;
         $project->save();
 

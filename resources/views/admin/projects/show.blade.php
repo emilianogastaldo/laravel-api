@@ -43,6 +43,8 @@
     <hr>
     <footer class="d-flex justify-content-between alig-items-center">
         <a href="{{route('admin.projects.index')}}" class="btn btn-outline-secondary"><i class="far fa-hand-point-left me-2"></i>Torna indietro</a>
+        {{-- Permetto di vedere i tasti di modifica SOLO all'utente che ha creato il progetto, controllando l'user_id del progetto con user id di chi è loggato --}}
+        {{-- @if(Auth::id() === $project->user_id) --}}
         <div class="d-flex justify-content-between alig-items-center gap-2">
             <a href="{{route('admin.projects.edit', $project)}}" class="btn btn-outline-warning"><i class="fas fa-pen me-2"></i>Modifica</a>
             <form action="{{route('admin.projects.destroy', $project)}}" method="POST" class="delete-form" data-bs-toggle="modal" data-bs-target="#modal">
@@ -51,6 +53,7 @@
                 <button class="btn btn-outline-danger"><i class="fas fa-trash-can me-2"></i>Elimina</button>
             </form>
         </div>
+        {{-- @endif --}}
     </footer>
 @endsection
 

@@ -33,8 +33,7 @@
           </div>
         </form>
     </header>
-    <hr>
-    <table class="table table-sm">
+    <table class="table table-sm border-top">
         <thead>
           <tr class="align-middle">
             <th scope="col">Id</th>
@@ -47,7 +46,7 @@
             <th scope="col">Creato il</th>
             <th scope="col">Ultima modifica</th>
             <th scope="col">
-              <div class="d-flex justify-content-center gap-3">
+              <div class="d-flex flex-column justify-content-center gap-3">
                 <a href="{{route('admin.projects.create')}}" class="btn btn-success"><i class="fas fa-plus-square "></i> Nuovo</a>
                 <a href="{{route('admin.projects.trash')}}" class="btn btn-secondary"><i class="fas fa-trash-can "></i> Cestino</a>
               </div>
@@ -90,12 +89,15 @@
               <td>
                 <div class="d-flex gap-2 justify-content-center">
                     <a href="{{route('admin.projects.show', $project)}}" class="btn btn-outline-primary"><i class="fas fa-eye"></i></a>
+                    {{-- Solo l'utente corretto può modificare --}}
+                    {{-- @if(Auth::id() === $project->user_id) --}}
                     <a href="{{route('admin.projects.edit', $project)}}" class="btn btn-outline-warning"><i class="fas fa-pen"></i></a>
                     <form action="{{route('admin.projects.destroy', $project)}}" method="POST" class="delete-form" data-bs-toggle="modal" data-bs-target="#modal">
                         @csrf
                         @method('DELETE')
                         <button class="btn btn-outline-danger"><i class="fas fa-trash-can"></i></button>
                     </form>
+                    {{-- @endif --}}
                 </div>
               </td>
             </tr>                
