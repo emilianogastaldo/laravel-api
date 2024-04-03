@@ -41,6 +41,11 @@ class Project extends Model
         return $this->belongsToMany(Technology::class);
     }
 
+    // Definisco la relazione tra many to one con User
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
     // Creo l'Accessor per modificare l'url delle immagini, nome funzione uguale a quello della colonna
     //  (!) Questo verrà eseguito SEMPRE quindi può essere dispendioso
     public function image(): Attribute
