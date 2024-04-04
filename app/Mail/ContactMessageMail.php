@@ -16,9 +16,10 @@ class ContactMessageMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public $sender;
+    public function __construct($sender)
     {
-        //
+        $this->sender = $sender;
     }
 
     /**
@@ -27,6 +28,7 @@ class ContactMessageMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
+            replyTo: $this->sender,
             subject: 'Contact Message Mail',
         );
     }
@@ -37,7 +39,7 @@ class ContactMessageMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'view.name',
+            view: 'mails.contacts.message',
         );
     }
 
