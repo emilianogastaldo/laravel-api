@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\ProjectController;
+use App\Http\Controllers\Api\MailController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -33,3 +34,6 @@ Route::apiResource('/projects', ProjectController::class)->only('index');
 Route::get('/projects/{slug}', [ProjectController::class, 'show']);
 
 // Comando per vedere le rotte: php artisan route:list e posso filtrare con --path=api
+
+// Creo la rotta per inviare le informazioni della email ricevuta
+Route::post('/contact-mail', [MailController::class, 'message']);
