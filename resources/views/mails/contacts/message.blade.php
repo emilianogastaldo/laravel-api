@@ -8,5 +8,6 @@
 </head>
 <body>
     <h1>EMAIL DI PROVA</h1>
+    <p>{{$content}}</p>
 </body>
 </html>

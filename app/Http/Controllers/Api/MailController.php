@@ -9,11 +9,14 @@ use Illuminate\Support\Facades\Mail;
 
 class MailController extends Controller
 {
-    public function message()
+    public function message(Request $request)
     {
-        $mail = new ContactMessageMail('prova@email.it');
+        $data = $request->all();
+
+        $mail = new ContactMessageMail($data['sender'], $data['subject'], $data['message']);
         Mail::to(env('MAIL_TO_ADDRESS'))->send($mail);
 
+        // return $data; 
         return response(null, 204);
     }
 }
