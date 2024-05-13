@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\ProjectController;
 use App\Http\Controllers\Api\MailController;
+use App\Http\Controllers\Api\TypeProjectController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -37,3 +38,6 @@ Route::get('/projects/{slug}', [ProjectController::class, 'show']);
 
 // Creo la rotta per inviare le informazioni della email ricevuta
 Route::post('/contact-mail', [MailController::class, 'message']);
+
+// Rotta per i post legati ad una categoria
+Route::get('/types/{id}/projects', TypeProjectController::class);
