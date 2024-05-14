@@ -16,7 +16,7 @@ class TypeProjectController extends Controller
         // $projects = $type->projects;
         // Per inserire la relazione devo usare PRIMA il metodo load()
         $type->load('projects.user', 'projects.technology', 'projects.type');
-        $projects = $type->projects;
+        $projects = $type->projects->where('is_published', 1);
 
         return response()->json(['projects' => $projects, 'label' => $type->label]);
     }
