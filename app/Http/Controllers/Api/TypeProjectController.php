@@ -8,9 +8,9 @@ use Illuminate\Http\Request;
 
 class TypeProjectController extends Controller
 {
-    public function __invoke(string $id)
+    public function __invoke(string $slug)
     {
-        $type = Type::find($id);
+        $type = Type::whereSlug($slug)->first();
         if (!$type) return response(null, 404);
         // Se invio giù questi progetti sono senza la relazione con le tecnologie, 
         // $projects = $type->projects;

@@ -40,4 +40,4 @@ Route::get('/projects/{slug}', [ProjectController::class, 'show']);
 Route::post('/contact-mail', [MailController::class, 'message']);
 
 // Rotta per i post legati ad una categoria
-Route::get('/types/{id}/projects', TypeProjectController::class);
+Route::get('/types/{slug}/projects', TypeProjectController::class);
